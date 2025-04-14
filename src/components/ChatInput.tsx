@@ -11,15 +11,14 @@ export default function ChatInput() {
   const [message, setMessage] = useState('');
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  // Check if selected model supports images
-  const selectedModel = models.find(m => m.id === selectedModelId);
+
+  const selectedModel = models.find((m) => m.id === selectedModelId);
   const supportsImages = selectedModel?.multimodal || false;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() && attachments.length === 0) return;
-    
+
     await sendMessage(message, attachments);
     setMessage('');
     setAttachments([]);
@@ -28,33 +27,31 @@ export default function ChatInput() {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    
+
     try {
       const newAttachments: Attachment[] = [];
-      
+
       for (let i = 0; i < files.length; i++) {
         const attachment = await processFileUpload(files[i]);
         newAttachments.push(attachment);
       }
-      
-      setAttachments(prev => [...prev, ...newAttachments]);
+
+      setAttachments((prev) => [...prev, ...newAttachments]);
     } catch (error) {
       console.error('Error processing file:', error);
     }
-    
-    // Reset the input
+
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
   const removeAttachment = (index: number) => {
-    setAttachments(prev => prev.filter((_, i) => i !== index));
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col w-full">
-      {/* Attachments preview */}
       {attachments.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-2">
           {attachments.map((attachment, index) => (
@@ -76,7 +73,9 @@ export default function ChatInput() {
                 </div>
               ) : (
                 <div className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-md p-2 pr-8">
-                  <span className="text-xs truncate max-w-[100px]">{attachment.name}</span>
+                  <span className="text-xs truncate max-w-[100px]">
+                    {attachment.name}
+                  </span>
                   <button
                     type="button"
                     onClick={() => removeAttachment(index)}
@@ -90,8 +89,7 @@ export default function ChatInput() {
           ))}
         </div>
       )}
-      
-      {/* Input area */}
+
       <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
         <textarea
           value={message}
@@ -106,7 +104,7 @@ export default function ChatInput() {
             }
           }}
         />
-        
+
         {supportsImages && (
           <>
             <input
@@ -127,7 +125,7 @@ export default function ChatInput() {
             </button>
           </>
         )}
-        
+
         <button
           type="submit"
           className="p-3 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
@@ -136,7 +134,7 @@ export default function ChatInput() {
           <FiSend />
         </button>
       </div>
-      
+
       {isLoading && (
         <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
           AI is thinking...

@@ -15,30 +15,32 @@ export default function DocumentUploader() {
     if (!files || files.length === 0) return;
 
     setIsUploading(true);
-    
+
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        
-        // Only process text files
-        if (!file.type.includes('text') && !file.name.endsWith('.txt') && !file.name.endsWith('.md')) {
+
+        if (
+          !file.type.includes('text') &&
+          !file.name.endsWith('.txt') &&
+          !file.name.endsWith('.md')
+        ) {
           continue;
         }
-        
+
         const content = await processTextFile(file);
-        
+
         addDocument({
           id: uuidv4(),
           name: file.name,
           content,
-          type: file.type
+          type: file.type,
         });
       }
     } catch (error) {
       console.error('Error uploading document:', error);
     } finally {
       setIsUploading(false);
-      // Reset the input
       e.target.value = '';
     }
   };
@@ -46,9 +48,7 @@ export default function DocumentUploader() {
   return (
     <div className="w-full mb-4">
       <div className="flex justify-between items-center mb-2">
-        <label className="block text-sm font-medium">
-          Context Documents
-        </label>
+        <label className="block text-sm font-medium">Context Documents</label>
         <label className="cursor-pointer bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-3 py-1 rounded-md text-sm">
           Upload
           <input
@@ -61,7 +61,7 @@ export default function DocumentUploader() {
           />
         </label>
       </div>
-      
+
       <div className="space-y-2 max-h-[200px] overflow-y-auto">
         {documents.length === 0 ? (
           <div className="text-center text-gray-500 dark:text-gray-400 py-2 text-sm">
@@ -75,7 +75,9 @@ export default function DocumentUploader() {
             >
               <div className="flex items-center">
                 <FiFile className="mr-2" />
-                <span className="text-sm truncate max-w-[200px]">{doc.name}</span>
+                <span className="text-sm truncate max-w-[200px]">
+                  {doc.name}
+                </span>
               </div>
               <button
                 onClick={() => removeDocument(doc.id)}

@@ -3,19 +3,15 @@ import { Message, OpenRouterModel } from '@/types';
 
 export async function getChatCompletion(messages: Message[], modelId: string) {
   try {
-    // Format messages for OpenRouter API
     const formattedMessages = messages.map((msg) => {
-      // Basic message format
       const formattedMsg: any = {
         role: msg.role,
         content: msg.content,
       };
 
-      // Handle attachments for multimodal models
       if (msg.attachments && msg.attachments.length > 0) {
         formattedMsg.content = [{ type: 'text', text: msg.content }];
 
-        // Add image attachments
         msg.attachments.forEach((attachment) => {
           if (attachment.type === 'image') {
             formattedMsg.content.push({
@@ -29,7 +25,6 @@ export async function getChatCompletion(messages: Message[], modelId: string) {
       return formattedMsg;
     });
 
-    // Call our own API endpoint instead of OpenRouter directly
     const response = await axios.post('/api/chat', {
       model: modelId,
       messages: formattedMessages,
@@ -42,10 +37,7 @@ export async function getChatCompletion(messages: Message[], modelId: string) {
   }
 }
 
-// Parse models from the text file
 export function parseModels(): OpenRouterModel[] {
-  // This would typically be loaded from an API or environment
-  // For now, we'll parse it from the text file content
   const modelsText = `
 nvidia/llama-3.1-nemotron-nano-8b-v1:free,NVIDIA: Llama 3.1 Nemotron Nano 8B v1 (free),131072
 nvidia/llama-3.3-nemotron-super-49b-v1:free,NVIDIA: Llama 3.3 Nemotron Super 49B v1 (free),131072
@@ -65,15 +57,12 @@ mistralai/mistral-small-3.1-24b-instruct:free,Mistral: Mistral Small 3.1 24B (fr
 huggingfaceh4/zephyr-7b-beta:free,Hugging Face: Zephyr 7B (free),4096
   `;
 
-  // Parse the models
   return modelsText
     .trim()
     .split('\n')
     .map((line) => {
       const [id, name, contextLength] = line.split(',');
 
-      // Determine if the model is multimodal based on its ID
-      // This is a simplification - in a real app, you'd get this from the API
       const multimodalModels = [
         'meta-llama/llama-4-maverick:free',
         'meta-llama/llama-4-scout:free',

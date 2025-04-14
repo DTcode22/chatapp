@@ -12,7 +12,7 @@ interface MessageItemProps {
 
 export default function MessageItem({ message }: MessageItemProps) {
   const isUser = message.role === 'user';
-  
+
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       <div
@@ -29,14 +29,12 @@ export default function MessageItem({ message }: MessageItemProps) {
             <FiCpu className="w-5 h-5" />
           )}
         </div>
-        
+
         <div className="flex flex-col">
-          {/* Message content */}
           <div className="prose dark:prose-invert max-w-none">
             <ReactMarkdown>{message.content}</ReactMarkdown>
           </div>
-          
-          {/* Attachments */}
+
           {message.attachments && message.attachments.length > 0 && (
             <div className="mt-2 space-y-2">
               {message.attachments.map((attachment, index) => (
@@ -62,8 +60,7 @@ export default function MessageItem({ message }: MessageItemProps) {
               ))}
             </div>
           )}
-          
-          {/* Timestamp */}
+
           <div className="text-xs mt-1 opacity-70">
             {new Date(message.timestamp).toLocaleTimeString()}
           </div>

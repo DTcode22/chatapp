@@ -8,7 +8,6 @@ export default function ChatWindow() {
   const { currentSession } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [currentSession?.messages]);
@@ -27,7 +26,9 @@ export default function ChatWindow() {
     <div className="flex-grow p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900 rounded-lg">
       {currentSession.messages.length === 0 ? (
         <div className="h-full flex flex-col items-center justify-center">
-          <h3 className="text-xl font-semibold mb-2">Start a new conversation</h3>
+          <h3 className="text-xl font-semibold mb-2">
+            Start a new conversation
+          </h3>
           <p className="text-gray-500 dark:text-gray-400 text-center max-w-md">
             Send a message to start chatting with the AI assistant.
             {currentSession.modelId && (
