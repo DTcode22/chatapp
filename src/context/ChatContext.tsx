@@ -18,7 +18,6 @@ import {
 import { getChatCompletion, parseModels } from '@/lib/api';
 import {
   getSessions,
-  getCurrentSessionId,
   setCurrentSessionId,
   createSession,
   getSessionById,

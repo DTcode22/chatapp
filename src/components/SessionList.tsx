@@ -5,16 +5,16 @@ import { useChat } from '@/context/ChatContext';
 import { FiPlus, FiMessageSquare, FiTrash2 } from 'react-icons/fi';
 
 export default function SessionList() {
-  const { 
-    sessions, 
-    currentSessionId, 
-    setCurrentSessionId, 
+  const {
+    sessions,
+    currentSessionId,
+    setCurrentSessionId,
     createNewSession,
-    deleteCurrentSession
+    deleteCurrentSession,
   } = useChat();
 
   return (
-    <div className="w-full">
+    <div className="w-full flex-grow flex flex-col overflow-hidden">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Chat Sessions</h2>
         <button
@@ -25,8 +25,8 @@ export default function SessionList() {
           <FiPlus />
         </button>
       </div>
-      
-      <div className="space-y-2 max-h-[300px] overflow-y-auto">
+
+      <div className="space-y-2 overflow-y-auto flex-grow">
         {sessions.length === 0 ? (
           <div className="text-center text-gray-500 dark:text-gray-400 py-4">
             No sessions yet. Create a new one!
@@ -53,7 +53,7 @@ export default function SessionList() {
                   </div>
                 </div>
               </div>
-              
+
               {currentSessionId === session.id && (
                 <button
                   onClick={(e) => {

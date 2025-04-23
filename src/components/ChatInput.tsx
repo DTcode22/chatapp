@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useChat } from '@/context/ChatContext';
 import { processFileUpload } from '@/lib/fileHandler';
 import { Attachment } from '@/types';
@@ -51,17 +52,22 @@ export default function ChatInput() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col w-full flex-shrink-0"
+    >
       {attachments.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-2">
           {attachments.map((attachment, index) => (
             <div key={index} className="relative">
               {attachment.type === 'image' ? (
                 <div className="relative w-16 h-16 rounded-md overflow-hidden">
-                  <img
+                  <Image
                     src={attachment.url}
-                    alt={attachment.name}
-                    className="w-full h-full object-cover"
+                    alt={attachment.name || 'Attachment'}
+                    className="object-cover"
+                    fill
+                    sizes="64px"
                   />
                   <button
                     type="button"
@@ -97,6 +103,7 @@ export default function ChatInput() {
           placeholder="Type your message..."
           className="flex-grow p-3 focus:outline-none bg-transparent"
           rows={1}
+          maxLength={4000}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();

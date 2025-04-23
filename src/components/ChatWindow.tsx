@@ -14,7 +14,7 @@ export default function ChatWindow() {
 
   if (!currentSession) {
     return (
-      <div className="flex-grow flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+      <div className="flex-grow flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg h-full overflow-auto">
         <p className="text-gray-500 dark:text-gray-400">
           Select a chat session or create a new one to start
         </p>
@@ -23,7 +23,7 @@ export default function ChatWindow() {
   }
 
   return (
-    <div className="flex-grow p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900 rounded-lg">
+    <div className="flex-grow p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900 rounded-lg h-full">
       {currentSession.messages.length === 0 ? (
         <div className="h-full flex flex-col items-center justify-center">
           <h3 className="text-xl font-semibold mb-2">

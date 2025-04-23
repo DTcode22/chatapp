@@ -7,8 +7,11 @@ export default function ModelSelector() {
   const { models, selectedModelId, selectModel } = useChat();
 
   return (
-    <div className="w-full mb-4">
-      <label htmlFor="model-selector" className="block text-sm font-medium mb-2">
+    <div className="w-full mb-4 flex-shrink-0">
+      <label
+        htmlFor="model-selector"
+        className="block text-sm font-medium mb-2"
+      >
         Select Model
       </label>
       <select
@@ -24,8 +27,11 @@ export default function ModelSelector() {
         ))}
       </select>
       <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        {selectedModelId && models.find(m => m.id === selectedModelId)?.contextLength 
-          ? `Context length: ${models.find(m => m.id === selectedModelId)?.contextLength} tokens` 
+        {selectedModelId &&
+        models.find((m) => m.id === selectedModelId)?.contextLength
+          ? `Context length: ${
+              models.find((m) => m.id === selectedModelId)?.contextLength
+            } tokens`
           : ''}
       </div>
     </div>

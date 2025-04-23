@@ -4,17 +4,30 @@ import { Message, OpenRouterModel } from '@/types';
 export async function getChatCompletion(messages: Message[], modelId: string) {
   try {
     const formattedMessages = messages.map((msg) => {
-      const formattedMsg: any = {
+      const formattedMsg: {
+        role: string;
+        content:
+          | string
+          | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+      } = {
         role: msg.role,
         content: msg.content,
       };
 
       if (msg.attachments && msg.attachments.length > 0) {
+        // Initialize content as an array
         formattedMsg.content = [{ type: 'text', text: msg.content }];
 
         msg.attachments.forEach((attachment) => {
           if (attachment.type === 'image') {
-            formattedMsg.content.push({
+            // TypeScript knows formattedMsg.content is an array here
+            (
+              formattedMsg.content as Array<{
+                type: string;
+                text?: string;
+                image_url?: { url: string };
+              }>
+            ).push({
               type: 'image_url',
               image_url: { url: attachment.url },
             });
