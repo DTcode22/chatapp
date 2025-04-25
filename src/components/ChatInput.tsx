@@ -20,9 +20,15 @@ export default function ChatInput() {
     e.preventDefault();
     if (!message.trim() && attachments.length === 0) return;
 
-    await sendMessage(message, attachments);
+    const currentMessage = message;
+    const currentAttachments = [...attachments];
+
+    // Clear input field before sending the request
     setMessage('');
     setAttachments([]);
+
+    // Then send the message with the saved content
+    await sendMessage(currentMessage, currentAttachments);
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,12 +102,12 @@ export default function ChatInput() {
         </div>
       )}
 
-      <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
+      <div className="flex items-center border border-gray-600 rounded-lg overflow-hidden bg-gray-700">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
-          className="flex-grow p-3 focus:outline-none bg-transparent"
+          className="flex-grow p-3 focus:outline-none bg-transparent text-gray-100 placeholder-gray-400"
           rows={1}
           maxLength={4000}
           onKeyDown={(e) => {
@@ -125,7 +131,7 @@ export default function ChatInput() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="p-3 text-gray-400 hover:text-gray-200 transition-colors"
               disabled={isLoading}
             >
               <FiPaperclip />
@@ -135,7 +141,7 @@ export default function ChatInput() {
 
         <button
           type="submit"
-          className="p-3 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+          className="p-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors"
           disabled={isLoading || (!message.trim() && attachments.length === 0)}
         >
           <FiSend />
@@ -143,7 +149,7 @@ export default function ChatInput() {
       </div>
 
       {isLoading && (
-        <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+        <div className="text-center text-sm text-gray-400 mt-2">
           AI is thinking...
         </div>
       )}

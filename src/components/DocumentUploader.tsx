@@ -49,7 +49,7 @@ export default function DocumentUploader() {
     <div className="w-full mb-4 flex-shrink-0">
       <div className="flex justify-between items-center mb-2">
         <label className="block text-sm font-medium">Context Documents</label>
-        <label className="cursor-pointer bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-3 py-1 rounded-md text-sm">
+        <label className="cursor-pointer bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-md text-sm">
           Upload
           <input
             type="file"
@@ -64,14 +64,14 @@ export default function DocumentUploader() {
 
       <div className="space-y-2 max-h-[150px] overflow-y-auto">
         {documents.length === 0 ? (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-2 text-sm">
+          <div className="text-center text-gray-400 py-2 text-sm">
             No documents added
           </div>
         ) : (
           documents.map((doc) => (
             <div
               key={doc.id}
-              className="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-800 rounded-md"
+              className="flex items-center justify-between p-2 bg-gray-700 rounded-md border border-gray-600"
             >
               <div className="flex items-center">
                 <FiFile className="mr-2" />
@@ -81,7 +81,7 @@ export default function DocumentUploader() {
               </div>
               <button
                 onClick={() => removeDocument(doc.id)}
-                className="p-1 text-gray-500 hover:text-red-500"
+                className="p-1 text-gray-400 hover:text-red-400"
                 aria-label="Remove document"
               >
                 <FiX />

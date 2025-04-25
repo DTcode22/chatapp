@@ -19,7 +19,7 @@ export default function SessionList() {
         <h2 className="text-lg font-semibold">Chat Sessions</h2>
         <button
           onClick={createNewSession}
-          className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+          className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
           aria-label="New chat"
         >
           <FiPlus />
@@ -28,7 +28,7 @@ export default function SessionList() {
 
       <div className="space-y-2 overflow-y-auto flex-grow">
         {sessions.length === 0 ? (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-4">
+          <div className="text-center text-gray-400 py-4">
             No sessions yet. Create a new one!
           </div>
         ) : (
@@ -37,8 +37,8 @@ export default function SessionList() {
               key={session.id}
               className={`flex items-center justify-between p-3 rounded-md cursor-pointer ${
                 currentSessionId === session.id
-                  ? 'bg-blue-100 dark:bg-blue-900'
-                  : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-blue-900 border border-blue-700'
+                  : 'hover:bg-gray-700 border border-gray-700'
               }`}
               onClick={() => setCurrentSessionId(session.id)}
             >
@@ -48,7 +48,7 @@ export default function SessionList() {
                   <div className="font-medium truncate max-w-[180px]">
                     {session.title}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-gray-400">
                     {new Date(session.updatedAt).toLocaleString()}
                   </div>
                 </div>
@@ -60,7 +60,7 @@ export default function SessionList() {
                     e.stopPropagation();
                     deleteCurrentSession();
                   }}
-                  className="p-1 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full"
+                  className="p-1 text-red-400 hover:bg-red-900 rounded-full"
                   aria-label="Delete session"
                 >
                   <FiTrash2 />

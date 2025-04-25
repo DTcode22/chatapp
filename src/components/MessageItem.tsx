@@ -18,8 +18,8 @@ export default function MessageItem({ message }: MessageItemProps) {
       <div
         className={`flex max-w-[80%] ${
           isUser
-            ? 'bg-blue-500 text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg'
-            : 'bg-gray-200 dark:bg-gray-800 rounded-tl-lg rounded-tr-lg rounded-br-lg'
+            ? 'bg-blue-600 text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg'
+            : 'bg-gray-700 text-gray-100 rounded-tl-lg rounded-tr-lg rounded-br-lg border border-gray-600'
         } p-3`}
       >
         <div className="mr-3 mt-1">

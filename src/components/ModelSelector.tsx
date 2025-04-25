@@ -18,7 +18,7 @@ export default function ModelSelector() {
         id="model-selector"
         value={selectedModelId}
         onChange={(e) => selectModel(e.target.value)}
-        className="w-full p-2 border border-gray-300 rounded-md bg-white dark:bg-gray-800 dark:border-gray-700"
+        className="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-gray-100"
       >
         {models.map((model) => (
           <option key={model.id} value={model.id}>
@@ -26,7 +26,7 @@ export default function ModelSelector() {
           </option>
         ))}
       </select>
-      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+      <div className="mt-1 text-xs text-gray-400">
         {selectedModelId &&
         models.find((m) => m.id === selectedModelId)?.contextLength
           ? `Context length: ${
